@@ -6,7 +6,7 @@ const Navbar = () => {
     const {user} = useContext(AuthContext)
     return (
         <div className='flex justify-between'>
-            <div>{user && user.name}</div>
+            <div>{user && user.email}</div>
             <div className='text-lg space-x-5'>
                 <Link to ='/news'>Home</Link>
                 <Link to ='/news'>About</Link>
@@ -14,7 +14,10 @@ const Navbar = () => {
             </div>
             <div className='flex items-center space-x-4'>
                 <img className='w-10 h-10' src={userProfile} alt="" />
-                <Link to="/auth/login" className='btn btn-neutral btn-sm'>Login</Link>
+                {
+                    user && user?.email ? <button className='btn btn-neutral btn-sm'>Log Out</button> :  <Link to="/auth/login" className='btn btn-neutral btn-sm'>Login</Link>
+                }
+               
             </div>
         </div>
     );
