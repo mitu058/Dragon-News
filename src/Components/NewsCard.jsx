@@ -3,6 +3,7 @@ import { BsShare } from "react-icons/bs";
 import { FaStar } from "react-icons/fa";
 import { FaEye, FaRegBookmark } from "react-icons/fa6";
 import ReactStars from "react-rating-stars-component";
+import { Link } from "react-router-dom";
 
 const NewsCard = ({ news }) => {
   console.log(news);
@@ -32,8 +33,8 @@ const NewsCard = ({ news }) => {
         alt="Thumbnail"
       />
       <p className="text-gray-500 text-sm mb-4">
-        {news.details.substring(0, 150)}...
-        <span className="text-red-500 font-semibold"> Read More</span>
+        {news.details.slice(0, 150)}...{" "}
+        <Link to={`/news/${news._id}`} className="text-red-500 font-semibold"> Read More</Link>
       </p>
       <div className="flex items-center justify-between text-gray-500 text-sm">
         <div className="flex items-center space-x-1">
