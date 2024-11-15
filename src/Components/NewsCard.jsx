@@ -6,7 +6,6 @@ import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
 
 const NewsCard = ({ news }) => {
-  console.log(news);
   return (
     <div className="max-w-lg mb-8 rounded overflow-hidden shadow-lg border border-gray-200 p-5">
       <div className="flex items-center mb-4">

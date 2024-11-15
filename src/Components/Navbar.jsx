@@ -13,9 +13,19 @@ const Navbar = () => {
         <Link to="">Career</Link>
       </div>
       <div className="flex items-center space-x-4">
-        <img className="w-10 h-10" src={userProfile} alt="" />
         {user && user?.email ? (
-          <button onClick={logOut} className="btn btn-neutral btn-sm">Log Out</button>
+          <div>
+            <img className="w-10 h-10 rounded-full" src={user?.photoURL} alt="" />
+            <p>{user?.displayName}</p>
+          </div>
+        ) : (
+          <img className="w-10 h-10" src={userProfile} alt="" />
+        )}
+
+        {user && user?.email ? (
+          <button onClick={logOut} className="btn btn-neutral btn-sm">
+            Log Out
+          </button>
         ) : (
           <Link to="/auth/login" className="btn btn-neutral">
             Login

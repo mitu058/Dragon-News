@@ -1,10 +1,12 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Provider/AuthProvider';
 
 const Register = () => {
 
-  const {creatNewUser,setUser} = useContext(AuthContext)
+  const {creatNewUser,setUser,updateUserProfile} = useContext(AuthContext)
+  const [error,setError] = useState({})
+  const navigate = useNavigate()
 
   const handelSubmit =(e) =>{
     e.preventDefault()
@@ -14,17 +16,26 @@ const Register = () => {
   const photo = form.get('photo')
   const email = form.get('email')
   const password = form.get('password')
-  console.log({name,photo,email,password})
+  if(password.length < 6){
+    setError({...error, password:'Password must be at least 6 character or longer'})
+  }
+  // console.log({name,photo,email,password})
 
   creatNewUser(email,password)
   .then(result =>{
     const user = result.user
     setUser(user)
-    console.log(user)
+    updateUserProfile({displayName: name , photoURL: photo})
+    .then(()=>{
+      navigate("/")
+    })
+    .catch(err =>{
+      // console.log(err)
+    })
   })
   .catch((error) => {
-    const errorMessage = error.message;
-   console.log(errorMessage)
+    const errorMessage = error.message
+  //  console.log(errorMessage)
   });
   }
     return (
@@ -81,6 +92,9 @@ const Register = () => {
                 className="input input-bordered"
                 required
               />
+              {
+                error.password && <p className='text-sm p-2 text-red-500'>{error.password}</p>
+              }
               <label className="label">
                 <a href="#" className="label-text-alt link link-hover">
                   Forgot password?
